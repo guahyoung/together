@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "lib": [
+      // 컴파일 할 때 포함될 라이브러리 목록
+      "dom",
+      "dom.iterable",
+      "esnext",
+    ],   
+    "types": ["vite/client"],
+    "target": "es5", // 'es3', 'es5', 'es2015', 'es2016', 'es2017','es2018', 'esnext' 가능
+    "module": "ESNext", //무슨 import 문법 쓸건지 'commonjs', 'amd', 'es2015', 'esnext'
+    "allowJs": true, // js 파일들 ts에서 import해서 쓸 수 있는지
+    "checkJs": false, // 일반 js 파일에서도 에러체크 여부
+    "jsx": "react-jsx", // tsx 파일을 jsx로 어떻게 컴파일할 것인지 'preserve', 'react-native', 'react'
+    "declaration": true, //컴파일시 .d.ts 파일도 자동으로 함께생성 (현재쓰는 모든 타입이 정의된 파일)
+    "outDir": "build", //js파일 아웃풋 경로바꾸기(컴파일된 js가 생성되는 경로)
+    "rootDir": "./", //루트경로 바꾸기 (js 파일 아웃풋 경로에 영향줌) (시작 경로)
+    "removeComments": true, //컴파일시 주석제거
+    "moduleResolution": "node", /* 모듈 분석 방법 설정: 'node' (Node.js) 또는 'classic' (TypeScript pre-1.6). */
+    "allowSyntheticDefaultImports": true,     /* 기본 출력(default export)이 없는 모듈로부터 기본 호출을 허용 (이 코드는 단지 유형 검사만 수행) */
+
+    "strict": true,
+
+    "noUnusedLocals": true, //쓰지않는 지역변수 있으면 에러내기
+    "noUnusedParameters": true, //쓰지않는 파라미터 있으면 에러내기
+    "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
+    "noFallthroughCasesInSwitch": true, //switch문 이상하면 에러내기
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    // ts 파일을 js로 컴파일할 폴더
+    "./src/**/*.ts", "./src/**/*.tsx", "src/App.jsx", // src에 있는 모든 ts파일을 확인하고 컴파일 실행
+  ],
+  "exclude": [
+    // js 컴파일 제외 폴더 지정
+    "node_modules","build/**/*"
+  ]
+}
