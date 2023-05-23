@@ -45,7 +45,10 @@ const StButton = styled.div`
   }
 `;
 
-const Popup = ({ closeModal }) => {
+interface PopupProps {
+  closeModal: () => void;
+}
+const Popup = ({ closeModal }: PopupProps) => {
   const dayClose = () => {
     const expiry = new Date();
     const expiryTime = expiry.getTime() + 1000 * 60 * 60 * 24;

@@ -1,8 +1,21 @@
 import { getColor, getFontStyle, rem } from '@/theme/utils';
-import { string } from 'prop-types';
+import { FC } from 'react';
 import styled from 'styled-components/macro';
 
-const StButton = styled.button`
+interface IsButton {
+  isActive?: boolean;
+}
+
+interface FormButtonProps {
+  type?: 'submit' | 'button';
+  children: string;
+  isActive?: boolean;
+}
+
+const StButton =
+  styled.button <
+  IsButton >
+  `
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,22 +43,16 @@ const StButton = styled.button`
     ${getFontStyle('LabelXL')};
   }
 `;
-const FormButton = ({ type, children, ...restProps }) => {
+const FormButton: FC<FormButtonProps> = ({
+  type = 'submit',
+  children,
+  isActive,
+}) => {
   return (
-    <StButton type={type} {...restProps}>
+    <StButton type={type} isActive={isActive}>
       {children}
     </StButton>
   );
-};
-
-FormButton.defaultProps = {
-  type: 'submit',
-  children: '버튼',
-};
-
-FormButton.propTypes = {
-  type: string,
-  children: string.isRequired,
 };
 
 export default FormButton;

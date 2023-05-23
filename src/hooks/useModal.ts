@@ -1,7 +1,7 @@
 import { modalAtomFamily } from '@/store/modalState';
 import { useRecoilState } from 'recoil';
 
-const useModal = (modalId) => {
+const useModal = (modalId: string) => {
   const [modal, setModal] = useRecoilState(modalAtomFamily(modalId));
 
   const openModal = () => {

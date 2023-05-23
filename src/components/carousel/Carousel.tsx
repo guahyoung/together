@@ -10,7 +10,14 @@ import { useEffect, useRef } from 'react';
 import { useReadData } from '@/firebase/firestore';
 import SkeletonCarousel from '@/components/loading/SkeletonCarousel';
 
-const StArrow = styled.button`
+interface ArrowProps {
+  onClick?: () => void;
+  direction?: 'prev' | 'next';
+}
+const StArrow =
+  styled.button <
+  ArrowProps >
+  `
   border: 0;
   position: absolute;
   top: 50%;
@@ -312,6 +319,17 @@ const StNumber = styled.span`
   line-height: 0;
 `;
 
+interface ICarousel {
+  title?: string;
+  count?: boolean;
+  dataName?: string;
+  dataProp?: IPrograms[];
+  mobileSlides?: number;
+  tabletSlides?: number;
+  desktopSlides?: number;
+  vod?: boolean;
+  number?: boolean;
+}
 const Carousel = ({
   title,
   count,

@@ -60,7 +60,11 @@ const StImgItem = styled.img`
   }
 `;
 
-const CarouselAutoFirst = ({ speed }) => {
+interface CarouselAutoFirstProps {
+  speed: string;
+}
+
+const CarouselAutoFirst = ({ speed }: CarouselAutoFirstProps) => {
   const { readData, data } = useReadData('landing-contents-first');
 
   useEffect(() => {
@@ -86,13 +90,6 @@ const CarouselAutoFirst = ({ speed }) => {
 };
 
 export default CarouselAutoFirst;
-
-CarouselAutoFirst.propTypes = {
-  /**
-   * 문자만 가능합니다. ex)'20s'
-   */
-  speed: string.isRequired,
-};
 
 CarouselAutoFirst.defaultProps = {
   speed: '30s',

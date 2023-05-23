@@ -120,7 +120,7 @@ const Footer = () => {
           <StCopyrightli>
             <span>대표이사 : YANG JIEUL</span>
             <span>
-              <StLink>사업자정보확인</StLink>
+              <StLink to="/main">사업자정보확인</StLink>
             </span>
             <span>사업자등록번호 : 188-88-01893</span>
             <span>통신판매신고번호 : 2020-서울마포-3641호</span>
@@ -133,7 +133,7 @@ const Footer = () => {
           </StCopyrightli>
           <StCopyrightli>
             <span>
-              <StLink>고객문의 바로가기</StLink>
+              <StLink to="/main">고객문의 바로가기</StLink>
             </span>
             <span>대표메일 : tving@cj.net</span>
             <span>고객센터 : 1670-1525 (평일/주말 09시~18시, 공휴일 휴무)</span>

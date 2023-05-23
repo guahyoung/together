@@ -32,7 +32,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.7971014492753623s"
@@ -41,7 +40,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.7971014492753623s"
             ></animate>
@@ -50,7 +48,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.7246376811594203s"
@@ -59,7 +56,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.7246376811594203s"
             ></animate>
@@ -68,7 +64,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.6521739130434783s"
@@ -77,7 +72,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.6521739130434783s"
             ></animate>
@@ -86,7 +80,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.5797101449275363s"
@@ -95,7 +88,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.5797101449275363s"
             ></animate>
@@ -109,7 +101,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.5072463768115941s"
@@ -118,7 +109,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.5072463768115941s"
             ></animate>
@@ -127,7 +117,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.43478260869565216s"
@@ -136,7 +125,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.43478260869565216s"
             ></animate>
@@ -145,7 +133,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.36231884057971014s"
@@ -154,7 +141,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.36231884057971014s"
             ></animate>
@@ -168,7 +154,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.2898550724637681s"
@@ -177,7 +162,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.2898550724637681s"
             ></animate>
@@ -191,7 +175,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.21739130434782608s"
@@ -200,7 +183,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.21739130434782608s"
             ></animate>
@@ -209,7 +191,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.14492753623188406s"
@@ -218,7 +199,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.14492753623188406s"
             ></animate>
@@ -227,7 +207,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="-0.07246376811594203s"
@@ -236,7 +215,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="-0.07246376811594203s"
             ></animate>
@@ -250,7 +228,6 @@ const LoadingSpinner = () => {
             <animate
               attributeName="r"
               values="3;3;5;3;3"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               repeatCount="indefinite"
               begin="0s"
@@ -259,7 +236,6 @@ const LoadingSpinner = () => {
               attributeName="fill"
               values="#f38a9b;#f38a9b;#ff153c;#f38a9b;#f38a9b"
               repeatCount="indefinite"
-              times="0;0.1;0.2;0.3;1"
               dur="0.8695652173913042s"
               begin="0s"
             ></animate>

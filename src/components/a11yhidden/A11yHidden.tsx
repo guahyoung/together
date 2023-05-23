@@ -1,6 +1,14 @@
 import styled, { css } from 'styled-components/macro';
 
-const StA11yHidden = styled.span`
+interface IStA11yHidden {
+  as?: string;
+  focusable?: boolean;
+}
+
+const StA11yHidden =
+  styled.span <
+  IStA11yHidden >
+  `
   overflow: hidden;
   position: ${(props) => (props.as === 'caption' ? 'static' : 'absolute')};
   clip: rect(1px, 1px, 1px, 1px);

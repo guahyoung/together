@@ -1,5 +1,4 @@
 import { getColor, getFontStyle, rem } from '@/theme/utils';
-import { string } from 'prop-types';
 import { useId } from 'react';
 import styled from 'styled-components/macro';
 import StA11yHidden from '@/components/a11yhidden/A11yHidden';
@@ -27,7 +26,23 @@ const StFormInput = styled.input`
   }
 `;
 
-const FormInput = ({ type, placeholder, label, ...restProps }) => {
+interface FormInputProps {
+  label: string;
+  name: string;
+  type: string;
+  placeholder?: string;
+  autoComplete?: string;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}
+
+const FormInput = ({
+  type,
+  placeholder,
+  label,
+  ...restProps
+}: FormInputProps) => {
   const id = useId();
   return (
     <div>
@@ -43,18 +58,7 @@ const FormInput = ({ type, placeholder, label, ...restProps }) => {
   );
 };
 
-FormInput.defaultProps = {
-  type: 'text',
-  label: 'label',
-};
-
-FormInput.propTypes = {
-  type: string,
-  label: string.isRequired,
-  placeholder: string.isRequired,
-};
-
-const renderLabel = (id, label) => {
+const renderLabel = (id: string, label: string) => {
   return (
     <StA11yHidden as="label" htmlFor={id}>
       {label}

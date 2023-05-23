@@ -13,7 +13,14 @@ import LogoModal from '@/components/header/LogoModal';
 import { useAuthState } from '@/firebase/auth';
 import StA11yHidden from '../a11yhidden/A11yHidden';
 
-const StHeader = styled.header`
+interface IHeader {
+  backgroundColor?: 'gradient' | 'black';
+  direction?: 'left' | 'right';
+}
+const StHeader =
+  styled.header <
+  IHeader >
+  `
   position: fixed;
   z-index: 3;
   width: 100%;
@@ -55,7 +62,10 @@ const StHeader = styled.header`
   }
 `;
 
-const StGnb = styled.div`
+const StGnb =
+  styled.div <
+  IHeader >
+  `
   display: flex;
   gap: ${(props) => (props.direction === 'left' ? rem(14) : rem(16))};
   align-items: center;
@@ -132,7 +142,7 @@ const Header = () => {
     closeModal();
   };
 
-  const navigateToPage = (page) => {
+  const navigateToPage = (page: string) => {
     closeModal();
     setSearchKeyword('');
     navigate(page);
@@ -179,6 +189,8 @@ const Header = () => {
                   id="live-default"
                   width={20}
                   height={20}
+                  tabletW={105}
+                  tabletH={33}
                   desktopW={34}
                   desktopH={34}
                   aria-label="실시간 방송"
@@ -192,6 +204,8 @@ const Header = () => {
                   id="paramount-default"
                   width={60}
                   height={20}
+                  tabletW={27}
+                  tabletH={27}
                   desktopW={112}
                   desktopH={34}
                   aria-label="파라마운트"

@@ -12,7 +12,7 @@ import { storage } from './index';
  */
 export function useDeleteFile() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const deleteFile = useCallback(async (urlPath) => {
     const assetRef = ref(storage, urlPath);

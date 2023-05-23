@@ -86,8 +86,15 @@ const StButton = styled.button`
   }
 `;
 
-const initialFormState = {
-  email: null,
+interface FormState {
+  email: string;
+  password: string;
+  passwordConfirm?: string;
+  [key: string]: string | undefined;
+}
+
+const initialFormState: FormState = {
+  email: '',
   password: '',
 };
 
@@ -98,7 +105,7 @@ const LoginForm = () => {
   const { isLoading, error, user } = useAuthState();
   const navigate = useNavigate();
 
-  const handleSignIn = async (e) => {
+  const handleSignIn = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { email, password } = formStateRef.current;
@@ -106,7 +113,7 @@ const LoginForm = () => {
     await signIn(email, password);
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
   };

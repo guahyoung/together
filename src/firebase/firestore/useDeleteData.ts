@@ -11,12 +11,12 @@ import { db } from './index';
  *   deleteData: (documentKey: string) => void;
  * }}
  */
-export function useDeleteData(collectionKey) {
+export function useDeleteData(collectionKey: string) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const deleteData = useCallback(
-    async (documentKey) => {
+    async (documentKey: string) => {
       const documentRef = doc(db, collectionKey, documentKey);
 
       setIsLoading(true);

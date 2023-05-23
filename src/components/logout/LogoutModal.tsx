@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import propTypes from 'prop-types';
+import PropTypes, { InferProps } from 'prop-types';
 import { useSignOut } from '@/firebase/auth';
 import Modal from '@/components/modal/Modal';
 
-const LogoutModal = ({ closeLogoutModal }) => {
+type LogoutModalProps = {
+  closeLogoutModal: () => void;
+};
+
+const LogoutModal = ({ closeLogoutModal }: LogoutModalProps): JSX.Element => {
   const navigate = useNavigate();
   const { signOut } = useSignOut();
 
-  const handleSignOut = () => {
+  const handleSignOut = (): void => {
     signOut();
     closeLogoutModal();
     navigate('/');
@@ -25,5 +29,5 @@ const LogoutModal = ({ closeLogoutModal }) => {
 export default LogoutModal;
 
 LogoutModal.propTypes = {
-  closeLogoutModal: propTypes.func,
-};
+  closeLogoutModal: PropTypes.func.isRequired,
+} as InferProps<LogoutModalProps>;

@@ -130,7 +130,7 @@ const LogoModal = () => {
     setIsModal(false);
   };
 
-  const stModalContainerRef = useRef(null);
+  const stModalContainerRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -141,7 +141,7 @@ const LogoModal = () => {
           to="/profile-page"
           onClick={() => {
             const modalContainer = stModalContainerRef.current;
-            if (stModalContainerRef.current) {
+            if (modalContainer) {
               modalContainer.style.display = 'none';
               setTimeout(() => {
                 modalContainer.style.removeProperty('display');
