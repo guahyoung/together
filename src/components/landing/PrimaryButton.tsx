@@ -1,4 +1,3 @@
-import { string } from 'prop-types';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import { getFontStyle } from '@/theme/utils';
@@ -32,25 +31,22 @@ const StSvg = styled.div`
   left: 0.9em;
 `;
 
-const PrimaryButton = ({ children }) => {
+interface PrimaryButtonProps {
+  buttonText: string;
+}
+
+const PrimaryButton = (props: PrimaryButtonProps) => {
   return (
     <StPrimaryButton to="/main" className="landingElementAnimation">
       <StSvg>
         <Svg id="symbol-logo" width="2.4em" height="2.4em" />
       </StSvg>
-      {children}
+      {props.buttonText}
     </StPrimaryButton>
   );
 };
 
 export default PrimaryButton;
-
-PrimaryButton.propTypes = {
-  /**
-   * 문자열만 가능합니다.
-   */
-  children: string.isRequired,
-};
 
 PrimaryButton.defaultProps = {
   children: '문구를 적어주세요',

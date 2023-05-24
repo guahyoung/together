@@ -15,9 +15,12 @@ import { func } from 'prop-types';
 import useModal from '@/hooks/useModal';
 import StA11yHidden from '../a11yhidden/A11yHidden';
 
-const SearchBar = ({ openModal }) => {
-  const [keywords, setKeywords] = useRecoilState(searchHistoryState);
-  const [keyword, setKeyword] = useRecoilState(searchKeywordState);
+interface SearchBarProps {
+  openModal?: () => void;
+}
+const SearchBar = ({ openModal }: SearchBarProps) => {
+  const [keywords, setKeywords] = useRecoilState<string>(searchHistoryState);
+  const [keyword, setKeyword] = useRecoilState<string>(searchKeywordState);
   const setSearchData = useSetRecoilState(searchBarDataState);
   const [isGuideModal, setIsGuideModal] = useState(false);
   const { toggleModal } = useModal('search');
@@ -27,11 +30,11 @@ const SearchBar = ({ openModal }) => {
     setIsGuideModal((isGuideModal) => !isGuideModal);
   };
 
-  const onChangeKeyword = (e) => {
+  const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!keyword) {
       toggleGuideModal();
@@ -54,7 +57,7 @@ const SearchBar = ({ openModal }) => {
     navigate(`/search?keyword=${keyword}`);
   };
 
-  const { readSearchData, isLoading, error } = useReadSearchData(
+  const { readSearchData } = useReadSearchData(
     'programs',
     keyword,
     'searchBarDataState'

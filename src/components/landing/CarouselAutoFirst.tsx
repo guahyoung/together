@@ -1,8 +1,17 @@
 import { useEffect } from 'react';
 import { useReadData } from '@/firebase/firestore';
 import styled, { keyframes } from 'styled-components/macro';
-import { string } from 'prop-types';
 
+interface CarouselAutoFirstProps {
+  speed: string;
+}
+
+interface AutoContainerProps {
+  id: string;
+  mobileUrl: string;
+  desktopUrl: string;
+  alt: string;
+}
 const StCarouselAutoFirst = styled.section`
   position: relative;
   overflow: hidden;
@@ -31,7 +40,10 @@ const autoPlayL = keyframes`
     }
 `;
 
-const StAutoContainer = styled.div`
+const StAutoContainer =
+  styled.div <
+  CarouselAutoFirstProps >
+  `
   object-fit: contain;
   width: calc(189px * 5);
   display: flex;
@@ -60,10 +72,6 @@ const StImgItem = styled.img`
   }
 `;
 
-interface CarouselAutoFirstProps {
-  speed: string;
-}
-
 const CarouselAutoFirst = ({ speed }: CarouselAutoFirstProps) => {
   const { readData, data } = useReadData('landing-contents-first');
 
@@ -74,12 +82,12 @@ const CarouselAutoFirst = ({ speed }: CarouselAutoFirstProps) => {
   return (
     <StCarouselAutoFirst className="landingElementAnimation">
       <StAutoContainer speed={speed} className="landingAutoContainerAnimation">
-        {data?.map((data) => {
+        {(data as AutoContainerProps[])?.map((data) => {
           return (
             <StImgItem key={data.id} src={data.desktopUrl} alt={data.alt} />
           );
         })}
-        {data?.map((data) => {
+        {(data as AutoContainerProps[])?.map((data) => {
           return (
             <StImgItem key={data.id} src={data.desktopUrl} alt={data.alt} />
           );

@@ -24,7 +24,7 @@ export function useSignUp(sendEmailVerification = false) {
   const [user, setUser] = useState(null);
 
   const signUp = useCallback(
-    async (email, password, displayName) => {
+    async (email: string, password: string, displayName?: string) => {
       setIsLoading(true);
       try {
         const userCredentials = await createUserWithEmailAndPassword(

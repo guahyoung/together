@@ -2,6 +2,12 @@ import { useEffect } from 'react';
 import { useReadData } from '@/firebase/firestore';
 import styled from 'styled-components/macro';
 
+interface AutoContainerProps {
+  id: string;
+  mobileUrl: string;
+  desktopUrl: string;
+  alt: string;
+}
 const StCarouselScroll = styled.section`
   /* border: 1px dashed blue.; */
   position: relative;
@@ -68,7 +74,7 @@ const CarouselScroll = () => {
     <StCarouselScroll className="landingElementAnimation sliderSection">
       <StScrollContainer className="landingScrollContainerAnimation">
         <StImgContainer className="landingImgContainerAnimation">
-          {data?.map((data) => {
+          {(data as AutoContainerProps[])?.map((data) => {
             return (
               <StImgItem key={data.id} className="imgContainer">
                 <source srcSet={data.mobileUrl} media="(max-width: 999px)" />

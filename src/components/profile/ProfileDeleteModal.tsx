@@ -25,7 +25,7 @@ const ProfileDeleteModal = ({
         await deleteData(`${user.uid}/profile/${profileId}`);
         await deleteFile(`profile/${user.uid}/${storageID}/mobile`);
 
-        await closeProfileDeleteModal?.();
+        closeProfileDeleteModal?.();
         navigate('/profile-page');
       }
     } catch (error) {

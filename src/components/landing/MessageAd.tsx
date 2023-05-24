@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro';
 import { getFontStyle } from '@/theme/utils';
-import { PropTypes } from 'prop-types';
 
 const StMessageAd = styled.div`
   display: flex;
@@ -39,13 +38,15 @@ const StMessageAd = styled.div`
   }
 `;
 
-const MessageAd = (props) => {
+interface MessageAdProps {
+  mainText: string;
+  subText: string;
+  detailText: string;
+}
+
+const MessageAd = (props: MessageAdProps) => {
   return (
-    <StMessageAd
-      title={props.mainText}
-      sub={props.subText}
-      detail={props.detailText}
-    >
+    <StMessageAd>
       <h2 className="landingElementAnimation">{props.mainText}</h2>
       <span className="landingElementAnimation">{props.subText}</span>
       <span className="landingElementAnimation">{props.detailText}</span>
@@ -54,15 +55,6 @@ const MessageAd = (props) => {
 };
 
 export default MessageAd;
-
-MessageAd.propTypes = {
-  /**
-   * 문자열만 가능합니다.
-   */
-  mainText: PropTypes.string.isRequired,
-  subText: PropTypes.string,
-  detailText: PropTypes.string,
-};
 
 MessageAd.defaultProps = {
   mainText: '내가 찾던 재미',

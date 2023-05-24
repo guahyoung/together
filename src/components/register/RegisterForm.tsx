@@ -26,7 +26,16 @@ const StHeaderDescription = styled.p`
   }
 `;
 
-const StEmailDescription = styled.p`
+interface DescriptionProps {
+  isEmail?: boolean;
+  isPassword?: boolean;
+  isPasswordConfirm?: boolean;
+}
+
+const StEmailDescription =
+  styled.p <
+  DescriptionProps >
+  `
   color: ${(props) => (props.isEmail ? getColor('--gray400') : 'red')};
   ${getFontStyle('ParagraphS')};
   @media (min-width: 768px) {
@@ -37,7 +46,10 @@ const StEmailDescription = styled.p`
   }
 `;
 
-const StPwDescription = styled.p`
+const StPwDescription =
+  styled.p <
+  DescriptionProps >
+  `
   color: ${(props) => (props.isPassword ? getColor('--gray400') : 'red')};
   ${getFontStyle('ParagraphS')};
   @media (min-width: 768px) {
@@ -48,7 +60,10 @@ const StPwDescription = styled.p`
   }
 `;
 
-const StPwConfirmDescription = styled.p`
+const StPwConfirmDescription =
+  styled.p <
+  DescriptionProps >
+  `
   color: ${(props) =>
     props.isPasswordConfirm ? getColor('--gray400') : 'red'};
   ${getFontStyle('ParagraphS')};
@@ -61,30 +76,37 @@ const StPwConfirmDescription = styled.p`
 `;
 
 const RegisterForm = () => {
-  const initialFormState = {
+  const initialFormState: FormProps = {
     email: '',
     password: '',
     passwordConfirm: '',
   };
 
+  interface FormProps {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+    [key: string]: string;
+  }
+
   const REGEXP_PW =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d@$!%*#?&]{8,15}$/;
   const REGEXP_EMAIL = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 
-  const [isEmail, setIsEmail] = useState(true);
-  const [isPassword, setIsPassword] = useState(true);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(true);
+  const [isEmail, setIsEmail] = useState<boolean>(true);
+  const [isPassword, setIsPassword] = useState<boolean>(true);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(true);
   const [isActive, setIsActive] = useState(false);
 
   const { signUp } = useSignUp();
   const { createAuthUser } = useCreateAuthUser();
   const { isLoading, error } = useAuthState();
 
-  const formStateRef = useRef(initialFormState);
+  const formStateRef = useRef<FormProps>(initialFormState);
   const { email, password, passwordConfirm } = formStateRef.current;
   const navigate = useNavigate();
 
-  const handleChangeEmail = (e) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
 
@@ -100,7 +122,7 @@ const RegisterForm = () => {
     }
   };
 
-  const handleChangePw = (e) => {
+  const handleChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
 
@@ -116,7 +138,7 @@ const RegisterForm = () => {
     }
   };
 
-  const handleChangePwConfirm = (e) => {
+  const handleChangePwConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
 
@@ -132,7 +154,7 @@ const RegisterForm = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!REGEXP_EMAIL.test(email)) {

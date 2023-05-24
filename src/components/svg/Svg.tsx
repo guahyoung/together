@@ -1,8 +1,20 @@
-import { string, number, oneOfType } from 'prop-types';
 import styled, { css } from 'styled-components/macro';
 import { rem } from '@/theme/utils';
 
-const StSvg = styled.svg`
+interface StSvgProps {
+  className?: string;
+  desktopW?: number | string;
+  desktopH?: number | string;
+  tabletW?: number | string;
+  tabletH?: number | string;
+  width: number | string;
+  height: number | string;
+}
+
+const StSvg =
+  styled.svg <
+  StSvgProps >
+  `
   width: ${(props) => rem(props.width)};
   height: ${(props) => rem(props.height)};
   display: inline-block;
@@ -10,7 +22,9 @@ const StSvg = styled.svg`
   ${(props) =>
     props.tabletW &&
     props.tabletH &&
-    css`
+    css <
+      StSvgProps >
+      `
       @media (min-width: 768px) {
         width: ${(props) => rem(props.tabletW)};
         height: ${(props) => rem(props.tabletH)};
@@ -20,7 +34,9 @@ const StSvg = styled.svg`
   ${(props) =>
     props.desktopW &&
     props.desktopH &&
-    css`
+    css <
+      StSvgProps >
+      `
       @media (min-width: 1920px) {
         width: ${(props) => rem(props.desktopW)};
         height: ${(props) => rem(props.desktopH)};
@@ -28,6 +44,9 @@ const StSvg = styled.svg`
     `}
 `;
 
+interface SvgProps extends StSvgProps {
+  id: string;
+}
 const Svg = ({
   id,
   desktopW,
@@ -37,7 +56,7 @@ const Svg = ({
   width,
   height,
   ...restProps
-}) => {
+}: SvgProps) => {
   return (
     <StSvg
       width={width}
@@ -54,13 +73,3 @@ const Svg = ({
 };
 
 export default Svg;
-
-Svg.propTypes = {
-  id: string.isRequired,
-  desktopW: oneOfType([number, string]),
-  desktopH: oneOfType([number, string]),
-  tabletW: oneOfType([number, string]),
-  tabletH: oneOfType([number, string]),
-  width: oneOfType([number, string]).isRequired,
-  height: oneOfType([number, string]).isRequired,
-};

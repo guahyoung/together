@@ -6,6 +6,11 @@ import { searchHistoryState } from '@/store/search/index';
 import { useNavigate } from 'react-router-dom';
 import useModal from '@/hooks/useModal';
 
+interface SearchHistoryProps {
+  id: string;
+  keyword: string;
+}
+
 const StRecent = styled.div`
   width: 50%;
   padding-right: ${rem(30)};
@@ -98,11 +103,12 @@ const StKeyword = styled.button`
 `;
 
 const SearchHistory = () => {
-  const [keywords, setKeywords] = useRecoilState(searchHistoryState);
+  const [keywords, setKeywords] =
+    useRecoilState<SearchHistoryProps[]>(searchHistoryState);
   const { toggleModal } = useModal('search');
   const navigate = useNavigate();
 
-  const removeKeyword = (id) => {
+  const removeKeyword = (id: string) => {
     setKeywords((keywords) => keywords.filter((keyword) => keyword.id !== id));
   };
 
@@ -110,7 +116,7 @@ const SearchHistory = () => {
     setKeywords([]);
   };
 
-  const searchKeyword = (keyword) => {
+  const searchKeyword = (keyword: string) => {
     toggleModal();
     navigate(`/search?keyword=${keyword}`);
   };

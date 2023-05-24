@@ -13,13 +13,13 @@ import { db } from './index';
  *   readData: (documentKey: string) => void;
  * }}
  */
-export function useReadData(collectionKey) {
+export function useReadData(collectionKey: string) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
+  const [data, setData] = useState<null | unknown | unknown[]>(null);
 
   const readData = useCallback(
-    async (documentKey) => {
+    async (documentKey?: string) => {
       setIsLoading(true);
 
       try {
@@ -47,7 +47,7 @@ export function useReadData(collectionKey) {
           }
         }
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

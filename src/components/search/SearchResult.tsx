@@ -4,6 +4,13 @@ import { useRecoilValue } from 'recoil';
 import { getFontStyle, rem } from '@/theme/utils';
 import { Link } from 'react-router-dom';
 
+interface SearchResultProps {
+  title?: string;
+  desktopUrl: string;
+  tabletUrl: string;
+  mobileUrl: string;
+  id: string;
+}
 const StTitle = styled.figcaption`
   ${getFontStyle('ParagraphS')};
   color: var(--gray200);
@@ -77,7 +84,7 @@ const SearchResult = () => {
   return (
     <div>
       <StImageContents>
-        {searchData?.slice(0, 7).map((data) => {
+        {searchData?.slice(0, 7).map((data: SearchResultProps) => {
           return (
             <Link key={data.id} to={`/search?keyword=${searchKeyword}`}>
               <figure>
@@ -93,7 +100,7 @@ const SearchResult = () => {
         })}
       </StImageContents>
       <StListContents>
-        {searchData?.slice(3, 10).map((data) => {
+        {searchData?.slice(3, 10).map((data: SearchResultProps) => {
           return (
             <li key={data.id}>
               <Link to={`/search?keyword=${searchKeyword}`}>
