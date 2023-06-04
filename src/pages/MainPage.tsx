@@ -30,7 +30,9 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const expiryDate = JSON.parse(localStorage.getItem('visitCookieExpiry'));
+    const expiryDate = JSON.parse(
+      localStorage.getItem('visitCookieExpiry') || 'null'
+    );
     if (expiryDate) {
       const currentDate = new Date().getTime();
 

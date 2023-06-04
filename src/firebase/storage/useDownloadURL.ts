@@ -9,10 +9,10 @@ import { storage } from './index';
  * @param {string} urlPath 에셋 위치(예: 'assets/images')
  * @returns {{ isLoading, error, downloadURL }}
  */
-export function useDownloadURL(urlPath) {
+export function useDownloadURL(urlPath: string) {
   const [isLoading, setIsLoading] = useState(false);
-  const [downloadURL, setDownloadURL] = useState(null);
-  const [error, setError] = useState(null);
+  const [downloadURL, setDownloadURL] = useState<null | string>(null);
+  const [error, setError] = useState<null | Error>(null);
 
   useEffect(() => {
     const assetRef = ref(storage, urlPath);
@@ -23,7 +23,7 @@ export function useDownloadURL(urlPath) {
         const url = await getDownloadURL(assetRef);
         setDownloadURL(url);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }
@@ -45,8 +45,8 @@ export function useDownloadURL(urlPath) {
  */
 export function useAllDownloadURL(dirName = 'assets') {
   const [isLoading, setIsLoading] = useState(false);
-  const [downloadURLList, setDownloadURLList] = useState(null);
-  const [error, setError] = useState(null);
+  const [downloadURLList, setDownloadURLList] = useState<null | string[]>(null);
+  const [error, setError] = useState<null | Error>(null);
 
   useEffect(() => {
     const assetDirRef = ref(storage, `${dirName}/`);
@@ -60,7 +60,7 @@ export function useAllDownloadURL(dirName = 'assets') {
         const downloadURLList = await Promise.all(downloadURLPromises);
         setDownloadURLList(downloadURLList);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

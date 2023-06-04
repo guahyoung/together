@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { auth } from './index';
 
 /* -------------------------------------------------------------------------- */
@@ -15,10 +15,10 @@ import { auth } from './index';
  */
 export function useSignIn() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
+  const [error, setError] = useState<null | void>(null);
+  const [user, setUser] = useState<null | UserCredential>(null);
 
-  const signIn = useCallback(async (email, password) => {
+  const signIn = useCallback(async (email: string, password: string) => {
     setIsLoading(true);
     try {
       const userCredentials = await signInWithEmailAndPassword(

@@ -11,13 +11,21 @@ import { db } from './index';
  *   createAuthUser: (userAuth: import('firebase/auth').UserCredential.user, additionData: {}) => void
  * }}
  */
+
+interface UserAuthProps{
+  email: string | null;
+  displayName: string | null;
+  createAt?: string;
+  uid: string;
+}
+
 export function useCreateAuthUser(collectionKey = 'users') {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
   let uuid = self.crypto.randomUUID();
 
   const createAuthUser = useCallback(
-    async (userAuth, additionData = {}) => {
+    async (userAuth:UserAuthProps, additionData = {}) => {
       if (!userAuth) {
         return;
       }
@@ -48,7 +56,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
           );
         }
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

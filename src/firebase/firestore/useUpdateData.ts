@@ -11,9 +11,9 @@ import { db } from './index';
  *   updateData: (documentKey: string; data: any) => Promise<any>
  * }}
  */
-export function useUpdateData(collectionKey, documentKey) {
+export function useUpdateData(collectionKey: string, documentKey: string) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
 
   if (collectionKey.includes('/') && !documentKey) {
     const collectionAndDocumentKey = collectionKey.split('/');
@@ -22,7 +22,7 @@ export function useUpdateData(collectionKey, documentKey) {
   }
 
   const updateData = useCallback(
-    async (data, docKey) => {
+    async (data:any, docKey:any) => {
       docKey = docKey ?? documentKey;
       const documentRef = doc(db, collectionKey, docKey);
 
@@ -31,7 +31,7 @@ export function useUpdateData(collectionKey, documentKey) {
       try {
         await updateDoc(documentRef, data);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

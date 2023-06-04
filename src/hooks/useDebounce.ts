@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-const useDebounce = (func, delay, deps) => {
+const useDebounce = (func: () => void, delay: number, deps: string) => {
   const callback = useCallback(func, [deps]);
 
   useEffect(() => {

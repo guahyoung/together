@@ -11,13 +11,13 @@ import { db } from './index';
  *   createData: (data: any) => Promise<any>
  * }}
  */
-export function useCreateData(collectionKey) {
+export function useCreateData(collectionKey:string) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
   const [docId, setDocId] = useState('');
 
   const createData = useCallback(
-    async (data) => {
+    async (data:unknown) => {
       const collectionRef = collection(db, collectionKey);
 
       setIsLoading(true);
@@ -26,7 +26,7 @@ export function useCreateData(collectionKey) {
         const { id } = await addDoc(collectionRef, data);
         setDocId(id);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

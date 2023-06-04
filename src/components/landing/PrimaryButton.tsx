@@ -32,7 +32,7 @@ const StSvg = styled.div`
 `;
 
 interface PrimaryButtonProps {
-  buttonText: string;
+  buttonText?: string;
 }
 
 const PrimaryButton = (props: PrimaryButtonProps) => {

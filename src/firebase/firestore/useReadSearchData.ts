@@ -6,9 +6,13 @@ import {
   searchBarDataState,
 } from '@/store/search/searchDataState';
 
-const useReadSearchData = (collectionKey, keyword, atomState) => {
+const useReadSearchData = (
+  collectionKey: string,
+  keyword: string | null,
+  atomState: string
+) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
   const setData = useSetRecoilState(
     atomState === 'searchDataState' ? searchDataState : searchBarDataState
   );
@@ -28,7 +32,7 @@ const useReadSearchData = (collectionKey, keyword, atomState) => {
         setData((data) => [...data, { ...doc.data() }])
       );
     } catch (error) {
-      setError(error);
+      setError(error as Error);
     } finally {
       setIsLoading(false);
     }

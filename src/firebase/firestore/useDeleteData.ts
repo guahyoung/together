@@ -24,7 +24,7 @@ export function useDeleteData(collectionKey: string) {
       try {
         await deleteDoc(documentRef);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

@@ -1,10 +1,16 @@
-import { collection, onSnapshot, query, doc } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  query,
+  doc,
+  QuerySnapshot,
+} from 'firebase/firestore';
 import { useLayoutEffect, useMemo, useState } from 'react';
 import { db } from './index';
 
-export function useDataState(collectionKey, documentKey) {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+export function useDataState(collectionKey: string, documentKey: string) {
+  const [data, setData] = useState<null | string>(null);
+  const [error, setError] = useState<null | Error>(null);
 
   if (collectionKey.includes('/') && !documentKey) {
     const collectionAndDocumentKey = collectionKey.split('/');

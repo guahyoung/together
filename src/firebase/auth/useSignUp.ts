@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification as firebaseSendEmailVerification,
+  User,
 } from 'firebase/auth';
 import { auth } from './index';
 
@@ -20,8 +21,8 @@ import { auth } from './index';
  */
 export function useSignUp(sendEmailVerification = false) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
+  const [user, setUser] = useState<null | User>(null);
 
   const signUp = useCallback(
     async (email: string, password: string, displayName?: string) => {
@@ -46,7 +47,7 @@ export function useSignUp(sendEmailVerification = false) {
         setUser(user);
         return user;
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

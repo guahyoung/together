@@ -1,12 +1,15 @@
-import { node } from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { useAuthState } from './firebase/auth';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 
-const PrivateRoute = ({ children }) => {
+interface PrivateRouteProps {
+  children: React.ReactElement | React.ReactElement[];
+}
+const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const { user, isLoading } = useAuthState();
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <LoadingSpinner />;
   }
 
   if (user) {
@@ -22,10 +25,6 @@ const PrivateRoute = ({ children }) => {
       return <Navigate to="/login" />;
     }
   }
-};
-
-PrivateRoute.propTypes = {
-  children: node,
 };
 
 export default PrivateRoute;

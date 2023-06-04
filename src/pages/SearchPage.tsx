@@ -58,7 +58,7 @@ const SearchPage = () => {
   );
 
   useEffect(() => {
-    setSearchKeyword(searchParams.get('keyword'));
+    setSearchKeyword(searchParams.get('keyword') ?? '');
     readSearchData();
   }, [searchParams.get('keyword')]);
 
@@ -83,7 +83,7 @@ const SearchPage = () => {
           <input
             type="text"
             placeholder="TV프로그램, 영화 제목 및 출연진으로 검색해보세요"
-            value={searchParams.get('keyword') || ''}
+            value={searchParams.get('keyword') ?? ''}
             readOnly
           />
           <Svg

@@ -14,7 +14,7 @@ export function useDeleteFile() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | Error>(null);
 
-  const deleteFile = useCallback(async (urlPath) => {
+  const deleteFile = useCallback(async (urlPath: string) => {
     const assetRef = ref(storage, urlPath);
 
     setIsLoading(true);
@@ -22,7 +22,7 @@ export function useDeleteFile() {
     try {
       await deleteObject(assetRef);
     } catch (error) {
-      setError(error);
+      setError(error as Error);
     } finally {
       setIsLoading(false);
     }

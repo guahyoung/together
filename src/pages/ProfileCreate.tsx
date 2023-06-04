@@ -152,17 +152,17 @@ export const StCreatePageGroupButton = styled.div`
 
 const ProfileCreate = () => {
   const navigate = useNavigate();
-  const [text, setText] = useState('');
-  const [fileImage, setFileImage] = useState('');
+  const [text, setText] = useState<string>('');
+  const [fileImage, setFileImage] = useState<string | null | ArrayBuffer>(null);
   const { user } = useAuthState();
 
   const goToProfilePage = () => {
     navigate('/profile-page');
   };
 
-  const { createData } = useCreateData(user && `users/${user.uid}/profile`);
+  const { createData } = useCreateData(`users/${user?.uid}/profile`);
 
-  const [imageFile, setImageFile] = useState();
+  const [imageFile, setImageFile] = useState<File | null | number>(null);
 
   const saveFileImage = () => {
     const {
@@ -192,7 +192,7 @@ const ProfileCreate = () => {
     let uuid = self.crypto.randomUUID();
     const mobileRef = storageService
       .ref()
-      .child(`profile/${user.uid}/${uuid}/mobile`);
+      .child(`profile/${user?.uid}/${uuid}/mobile`);
     const response1 = await mobileRef.putString(fileImage, 'data_url');
     const mobileUrl = await response1.ref.getDownloadURL();
     const storageID = uuid;

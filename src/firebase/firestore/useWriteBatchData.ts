@@ -12,12 +12,12 @@ import { db } from './index';
  *   writeBatchData: (dataList) => void
  * }}
  */
-export function useWriteBatchData(collectionKey, documentKey = 'key') {
+export function useWriteBatchData(collectionKey: string, documentKey = 'key') {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const writeBatchData = useCallback(
-    async (dataList) => {
+    async (dataList: any[]) => {
       const collectionRef = collection(db, collectionKey);
       const batch = writeBatch(db);
 
@@ -32,7 +32,7 @@ export function useWriteBatchData(collectionKey, documentKey = 'key') {
         await batch.commit();
         console.log('콜렉션 생성 및 도큐멘트 생성 일괄 처리가 완료되었습니다.');
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

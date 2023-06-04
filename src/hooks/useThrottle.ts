@@ -1,5 +1,5 @@
-const useThrottle = (func, delay = 600) => {
-  let timer;
+const useThrottle = (func: () => void, delay = 600) => {
+  let timer: NodeJS.Timeout | null;
   return () => {
     if (!timer) {
       timer = setTimeout(() => {

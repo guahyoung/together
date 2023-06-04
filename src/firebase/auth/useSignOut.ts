@@ -14,14 +14,14 @@ import { auth } from './index';
  */
 export function useSignOut() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const signOut = useCallback(async () => {
     setIsLoading(true);
     try {
       return await firebaseSignOut(auth);
     } catch (error) {
-      setError(error);
+      setError(error as Error);
     } finally {
       setIsLoading(false);
     }
