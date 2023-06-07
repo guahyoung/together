@@ -153,7 +153,7 @@ export const StCreatePageGroupButton = styled.div`
 const ProfileCreate = () => {
   const navigate = useNavigate();
   const [text, setText] = useState<string>('');
-  const [fileImage, setFileImage] = useState<string | null | ArrayBuffer>(null);
+  const [fileImage, setFileImage] = useState<string | null | ArrayBuffer >(null);
   const { user } = useAuthState();
 
   const goToProfilePage = () => {
@@ -164,23 +164,23 @@ const ProfileCreate = () => {
 
   const [imageFile, setImageFile] = useState<File | null | number>(null);
 
-  const saveFileImage = () => {
-    const {
-      target: { files },
-    } = event;
-    const theFile = files[0];
+
+  const saveFileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    const theFile = files ? files[0] : null;
+    if (!theFile) return;
     const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
+      reader.onloadend = (finishedEvent: ProgressEvent<FileReader>) => {
+        const fileReader = finishedEvent.target as FileReader;
+        const result = fileReader.result;
       setFileImage(result);
     };
     reader.readAsDataURL(theFile);
-    return setImageFile(files.length);
-  };
+    if (files) {
+      return setImageFile(files.length);
+    }  };
 
-  const onChangeName = (e) => {
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
@@ -193,7 +193,8 @@ const ProfileCreate = () => {
     const mobileRef = storageService
       .ref()
       .child(`profile/${user?.uid}/${uuid}/mobile`);
-    const response1 = await mobileRef.putString(fileImage, 'data_url');
+      if (typeof fileImage === 'string') {
+        const response1 = await mobileRef.putString(fileImage, 'data_url');
     const mobileUrl = await response1.ref.getDownloadURL();
     const storageID = uuid;
 
@@ -202,11 +203,11 @@ const ProfileCreate = () => {
       mobileUrl,
       storageID,
     });
-
+  }
     goToProfilePage();
   };
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onUploadImageButtonClick = useCallback(() => {
     if (!inputRef.current) {
@@ -227,9 +228,8 @@ const ProfileCreate = () => {
       <StCreateText>프로필 추가</StCreateText>
       <StUploadImageView>
         <StUploadImage
-          src={fileImage}
+          src={typeof fileImage === 'string' ? fileImage : undefined}          
           alt="변경할 프로필 사진입니다."
-          ImageURL
         />
         {imageFile == null && (
           <StCreateSvgBox>
@@ -245,7 +245,7 @@ const ProfileCreate = () => {
                 />
               </StA11yHidden>
               <button
-                label="이미지 업로드 버튼"
+                aria-label="이미지 업로드 버튼"
                 onClick={onUploadImageButtonClick}
               >
                 <Svg

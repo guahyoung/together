@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { dbService } from '@/firebase/app';
 import { useAuthState } from '@/firebase/auth';
-import { string } from 'prop-types';
 import StA11yHidden from '@/components/a11yhidden/A11yHidden';
 import ProfileDeleteModal from '@/components/profile/ProfileDeleteModal';
 import {
@@ -19,7 +18,17 @@ import {
 import Svg from '@/components/svg/Svg';
 import { Helmet } from 'react-helmet-async';
 
-const ProfileNameForm = ({ profileId, defaultName, storageID }) => {
+interface ProfileNameFormProps {
+  profileId: string;
+  defaultName: string;
+  storageID: string;
+  onClose: () => void;
+}
+const ProfileNameForm = ({
+  profileId,
+  defaultName,
+  storageID,
+}: ProfileNameFormProps) => {
   const [name, setName] = useState(defaultName);
   const { user } = useAuthState();
   const navigate = useNavigate();
@@ -38,7 +47,7 @@ const ProfileNameForm = ({ profileId, defaultName, storageID }) => {
     try {
       await dbService
         .collection('users')
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection('profile')
         .doc(profileId)
         .update({ name });
@@ -82,11 +91,6 @@ const ProfileNameForm = ({ profileId, defaultName, storageID }) => {
   );
 };
 
-ProfileNameForm.propTypes = {
-  profileId: string,
-  defaultName: string,
-  storageID: string,
-};
 
 const ProfileEdit = () => {
   const { search } = useLocation();
@@ -96,7 +100,7 @@ const ProfileEdit = () => {
   const url = params.get('url');
   const storageID = params.get('storage');
 
-  const [profileName, setProfileName] = useState(name);
+  const [profileName, setProfileName] = useState<null | string>(name);
 
   return (
     <>
@@ -109,8 +113,8 @@ const ProfileEdit = () => {
       </Helmet>
       <StProfileTitle>프로필 편집</StProfileTitle>
       <StUploadImageView>
-        <StUploadImage src={url} alt="변경할 프로필 사진입니다." ImageURL />
-        <StProfileEditButton label="이미지 업로드">
+        <StUploadImage src={url || undefined} alt="변경할 프로필 사진입니다."  />
+        <StProfileEditButton aria-label="이미지 업로드">
           <button>
             <Svg
               id="profile-edit-pencil"
@@ -125,9 +129,10 @@ const ProfileEdit = () => {
         </StProfileEditButton>
       </StUploadImageView>
       <ProfileNameForm
-        profileId={id}
-        defaultName={profileName}
+        profileId={id ||''}
+        defaultName={profileName || ''}
         onClose={() => setProfileName(name)}
+        storageID={storageID || ''}
       />
     </>
   );
