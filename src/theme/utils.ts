@@ -1,19 +1,4 @@
-import { tokens } from './tokens';
-
-/**
- * Color 변환 유틸 함수
- * put string in parameters
- * @param {string} color (ex: 'gray-100')
- * @returns {string} color (ex: #e1e1e1)
- */
-export const getColor = (colorNameAndVariant) => {
-  if (colorNameAndVariant.includes('-')) {
-    let colorName = colorNameAndVariant;
-    return tokens.colors[colorName];
-  } else {
-    console.log('형식에 따라주세요');
-  }
-};
+import { tokens, FontTokens } from './tokens';
 
 /**
  * rem 단위 변환 유틸 함수
@@ -21,8 +6,8 @@ export const getColor = (colorNameAndVariant) => {
  * @param {string} baseValue
  * @returns {{value / baseValue}} (ex: 1rem)
  */
-export const rem = (value, baseValue = 16) => {
-  return `${Number(value / baseValue)}rem`;
+export const rem = (value: number | string, baseValue = 16): string => {
+  return `${Number(value) / baseValue}rem`;
 };
 
 /**
@@ -31,7 +16,7 @@ export const rem = (value, baseValue = 16) => {
  * @param {string} font (ex: 'headingM')
  * @returns {string} fontStyle
  */
-export const getFontStyle = (fontStyleAndVariant) => {
+export const getFontStyle = (fontStyleAndVariant: string): FontTokens => {
   let fontStyles = fontStyleAndVariant;
   return tokens.fonts[fontStyles];
 };

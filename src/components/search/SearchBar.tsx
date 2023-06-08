@@ -11,7 +11,6 @@ import useDebounce from '@/hooks/useDebounce';
 import useReadSearchData from '@/firebase/firestore/useReadSearchData';
 import Modal from '@/components/modal/Modal';
 import { useNavigate } from 'react-router-dom';
-import { func } from 'prop-types';
 import useModal from '@/hooks/useModal';
 import StA11yHidden from '../a11yhidden/A11yHidden';
 
@@ -86,7 +85,7 @@ const SearchBar = ({ openModal }: SearchBarProps) => {
       <StA11yHidden as="label" htmlFor="search">
         검색 키워드
       </StA11yHidden>
-      <StSearchInput>
+      <StSearchInput onSubmit={onSubmitHandler}>
         <input
           type="text"
           id="search"
@@ -96,7 +95,7 @@ const SearchBar = ({ openModal }: SearchBarProps) => {
           onClick={openModal}
           autoFocus
         />
-        <button onClick={onSubmitHandler}>
+        <button>
           <Svg
             id="search-hover"
             width={22}
@@ -113,7 +112,3 @@ const SearchBar = ({ openModal }: SearchBarProps) => {
 };
 
 export default SearchBar;
-
-SearchBar.propTypes = {
-  openModal: func,
-};

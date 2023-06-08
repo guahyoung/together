@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { getFontStyle, rem } from '@/theme/utils';
+import React from 'react';
 
 export const StProfileTitle = styled.h2`
   ${getFontStyle('headingM')};
@@ -38,14 +39,16 @@ export const StProfileItems = styled.ul`
   margin-top: ${rem(20)};
   margin-left: auto;
   margin-right: auto;
-  justify-content: ${(props) => {
-    props.children.length > 3 ? 'space-between' : 'space-evenly';
-  }};
+  justify-content: space-between;
   align-self: center;
   @media (min-width: 768px) {
     gap: ${rem(15)};
     width: ${rem(600)};
     padding-top: ${rem(20)};
+    justify-content: ${(props) => {
+      if (React.Children.count(props.children) > 3) return 'space-between';
+      else return 'space-evenly';
+    }};
   }
   @media (min-width: 1920px) {
     gap: ${rem(25)};

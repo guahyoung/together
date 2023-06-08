@@ -16,11 +16,11 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     if (location.pathname === '/') {
       return <Navigate to="/main" />;
     } else {
-      return children;
+      return <>(children)</>;
     }
   } else {
     if (location.pathname === '/') {
-      return children;
+      return <>(children)</>;
     } else {
       return <Navigate to="/login" />;
     }

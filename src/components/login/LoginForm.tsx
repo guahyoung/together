@@ -98,7 +98,7 @@ const initialFormState: FormState = {
   password: '',
 };
 
-const LoginForm = () => {
+const LoginForm = (): JSX.Element => {
   const formStateRef = useRef(initialFormState);
 
   const { isLoading: isLoadingSignIn, signIn } = useSignIn();
@@ -123,11 +123,11 @@ const LoginForm = () => {
   }
 
   if (error) {
-    return navigate('/*');
+    navigate('/*');
   }
 
   if (user) {
-    return navigate('/main');
+    navigate('/main');
   }
 
   return (

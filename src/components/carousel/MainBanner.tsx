@@ -10,6 +10,12 @@ import { useReadData } from '@/firebase/firestore';
 import SkeletonBanner from '@/components/loading/SkeletonBanner';
 import { Link } from 'react-router-dom';
 
+interface MainBanner {
+  id: string;
+  imgUrl: string;
+  title: string;
+  description: string;
+}
 const CustomDots = (props) => {
   const { onClick, activeIndex, dotsCount } = props;
 

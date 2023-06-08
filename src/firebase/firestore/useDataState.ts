@@ -3,13 +3,23 @@ import {
   onSnapshot,
   query,
   doc,
+  DocumentSnapshot,
   QuerySnapshot,
+  Unsubscribe,
 } from 'firebase/firestore';
 import { useLayoutEffect, useMemo, useState } from 'react';
 import { db } from './index';
 
-export function useDataState(collectionKey: string, documentKey: string) {
-  const [data, setData] = useState<null | string>(null);
+interface DataState {
+  data: undefined | null;
+  error: Error | null;
+}
+
+export function useDataState(
+  collectionKey: string,
+  documentKey?: string
+): DataState {
+  const [data, setData] = useState<null | undefined>(null);
   const [error, setError] = useState<null | Error>(null);
 
   if (collectionKey.includes('/') && !documentKey) {
@@ -19,33 +29,33 @@ export function useDataState(collectionKey: string, documentKey: string) {
   }
 
   useLayoutEffect(() => {
-    let unsubscribe;
+    let unsubscribe: Unsubscribe;
 
     if (documentKey) {
-      const q = query(doc(db, collectionKey, documentKey));
+      const documentRef = doc(db, collectionKey, documentKey);
 
       unsubscribe = onSnapshot(
-        q,
-        (doc) => {
-          setData(doc.data());
+        documentRef,
+        (snapshot: DocumentSnapshot) => {
+          setData(snapshot.data());
         },
-        (error) => {
+        (error: Error) => {
           setError(error);
         }
       );
     } else {
-      const q = query(collection(db, collectionKey));
+      const collectionRef = collection(db, collectionKey);
 
       unsubscribe = onSnapshot(
-        q,
-        (querySnapshot) => {
-          const data = [];
-          querySnapshot.forEach((doc) => {
+        collectionRef,
+        (Snapshot: QuerySnapshot) => {
+          const data : DataState[] = [];
+          Snapshot.forEach((doc) => {
             data.push(doc.data());
           });
           setData(data);
         },
-        (error) => {
+        (error: Error) => {
           setError(error);
         }
       );
@@ -54,5 +64,6 @@ export function useDataState(collectionKey: string, documentKey: string) {
     return unsubscribe;
   }, [collectionKey, documentKey]);
 
-  return useMemo(() => ({ data, error }), [data, error]);
+
+  return useMemo(() => ({ data, error }), [data, error]) as DataState;
 }

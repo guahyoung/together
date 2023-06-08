@@ -4,19 +4,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getFontStyle, rem } from '@/theme/utils';
 import Svg from '@/components/svg/Svg';
-import { bool, func, string, number, array } from 'prop-types';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useReadData } from '@/firebase/firestore';
 import SkeletonCarousel from '@/components/loading/SkeletonCarousel';
 
-interface ArrowProps {
-  onClick?: () => void;
-  direction?: 'prev' | 'next';
-}
+
 const StArrow =
   styled.button <
-  ArrowProps >
+  Arrow >
   `
   border: 0;
   position: absolute;
@@ -58,7 +54,11 @@ const StArrow =
   cursor: pointer;
 `;
 
-const Arrow = ({ onClick, direction }) => {
+interface Arrow {
+  onClick?: () => void;
+  direction: 'prev' | 'next';
+}
+const Arrow = ({ onClick, direction }: Arrow) => {
   return (
     <StArrow
       onClick={onClick}
@@ -73,11 +73,6 @@ const Arrow = ({ onClick, direction }) => {
       />
     </StArrow>
   );
-};
-
-Arrow.propTypes = {
-  onClick: func,
-  direction: string,
 };
 
 const StCarouselContainer = styled.section`
@@ -132,7 +127,7 @@ const StCarouselContainer = styled.section`
   }
 `;
 
-const StSlider = styled(Slider)`
+const StSlider = styled(Slider)<Carousel>`
   .slick-list {
     padding: ${rem(20)} ${rem(8)} 0;
     @media (min-width: 768px) {
@@ -281,7 +276,7 @@ const StSlider = styled(Slider)`
   }
 `;
 
-const StInfo = styled.div`
+const StInfo = styled.div<Carousel>`
   margin-top: ${rem(8)};
   ${(props) =>
     props.number &&
@@ -290,7 +285,7 @@ const StInfo = styled.div`
     `};
 `;
 
-const StTitle = styled.span`
+const StTitle = styled.span<Carousel>`
   ${(props) =>
     props.number &&
     css`
@@ -319,16 +314,28 @@ const StNumber = styled.span`
   line-height: 0;
 `;
 
-interface ICarousel {
+interface Carousel {
   title?: string;
   count?: boolean;
   dataName?: string;
-  dataProp?: IPrograms[];
+  dataProp?: Programs[];
   mobileSlides?: number;
   tabletSlides?: number;
   desktopSlides?: number;
   vod?: boolean;
   number?: boolean;
+}
+
+interface Programs {
+  title?: string;
+  category?: string;
+  description?: string;
+  desktopUrl: string;
+  tabletUrl: string;
+  mobileUrl: string;
+  genre?: string[];
+  id: string;
+  alt?: string;
 }
 const Carousel = ({
   title,
@@ -340,13 +347,16 @@ const Carousel = ({
   desktopSlides = 7,
   vod,
   number,
-}) => {
-  const sliderRef = useRef(null);
+}: Carousel) => {
+  const sliderRef = useRef<Slider | null>(null);
 
-  const handleSlideKeyUp = (e, index) => {
+  const handleSlideKeyUp = (
+    e: React.KeyboardEvent<HTMLAnchorElement>,
+    index: number
+  ) => {
     if (e.key === 'Tab') {
       e.preventDefault();
-      sliderRef.current.slickGoTo(index + 1);
+      sliderRef.current?.slickGoTo(index + 1);
     }
   };
 
@@ -377,7 +387,7 @@ const Carousel = ({
       },
     ],
   };
-  const { isLoading, readData, data } = useReadData(dataName);
+  const { isLoading, readData, data } = useReadData(dataName ?? '');
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -391,9 +401,9 @@ const Carousel = ({
       {(data || dataProp) && (
         <StCarouselContainer>
           <h2>{title}</h2>
-          {count && <StCount>{data.length}개</StCount>}
+          {count && <StCount>{(data as Programs[]).length}개</StCount>}
           <StSlider {...settings} ref={sliderRef} desktopSlides={desktopSlides}>
-            {(data || dataProp)?.slice(0, 20).map((data, index) => {
+            {(data as Programs[] || dataProp)?.slice(0, 20).map((data, index) => {
               return (
                 <div key={data.id}>
                   <Link
@@ -436,14 +446,3 @@ const Carousel = ({
 
 export default Carousel;
 
-Carousel.propTypes = {
-  title: string,
-  dataName: string,
-  dataProp: array,
-  count: bool,
-  mobileSlides: number,
-  tabletSlides: number,
-  desktopSlides: number,
-  vod: bool,
-  number: bool,
-};

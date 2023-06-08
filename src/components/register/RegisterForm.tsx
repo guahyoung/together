@@ -75,7 +75,7 @@ const StPwConfirmDescription =
   }
 `;
 
-const RegisterForm = () => {
+const RegisterForm = (): JSX.Element => {
   const initialFormState: FormProps = {
     email: '',
     password: '',
@@ -174,10 +174,16 @@ const RegisterForm = () => {
     }
 
     const user = await signUp(email, password);
-    await createAuthUser(user);
+
+    if (!user) {
+      alert('회원가입에 실패하였습니다.');
+      return;
+    }
+
+    await createAuthUser(user, {});
 
     alert('회원가입 및 유저 생성');
-    return navigate('/main');
+    navigate('/main');
   };
 
   if (isLoading) {
@@ -185,7 +191,7 @@ const RegisterForm = () => {
   }
 
   if (error) {
-    return navigate('/*');
+    navigate('/*');
   }
 
   return (

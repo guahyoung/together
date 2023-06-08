@@ -1,21 +1,12 @@
-export const tokens = {
-  colors: {
-    '--black': '#000000',
-    '--white': '#ffffff',
-    '--gray100': '#e1e1e1',
-    '--gray200': '#c4c4c4',
-    '--gray300': '#a6a6a6',
-    '--gray400': '#898989',
-    '--gray500': '#6b6b6b',
-    '--gray600': '#565656',
-    '--gray700': '#404040',
-    '--gray800': '#2b2b2b',
-    '--gray900': '#151515',
-    '--primary': '#FF153C',
-    '--secondary': '#E93945',
-    '--dark-bg1': '#191919',
-    '--dark-bg2': '#212121',
-  },
+export interface FontTokens {
+  [key: string]: string;
+}
+interface Tokens {
+  fonts: {
+    [key: string]: FontTokens,
+  };
+}
+export const tokens: Tokens = {
   fonts: {
     headingM: {
       'font-family': 'Pretendard',
