@@ -38,7 +38,7 @@ const useReadSearchData = (
         .where('title', '<=', keyword + '\uf8ff')
         .get();
         snapshot.forEach((doc) =>
-        setData((data) => [...data, doc.data() as ReadSearchDataProps])
+        setData((data) => [...data, {...doc.data()} as ReadSearchDataProps])
       );
     } catch (error) {
       setError(error as Error);

@@ -10,7 +10,6 @@ interface StSvgProps {
   width: number | string;
   height: number | string;
 }
-
 const StSvg =
   styled.svg <
   StSvgProps >
@@ -26,8 +25,8 @@ const StSvg =
       StSvgProps >
       `
       @media (min-width: 768px) {
-        width: ${(props) => rem(props.tabletW)};
-        height: ${(props) => rem(props.tabletH)};
+        width: ${(props) => rem(props.tabletW as number | string)};
+        height: ${(props) => rem(props.tabletH as number | string)};
       }
     `}
 
@@ -38,8 +37,8 @@ const StSvg =
       StSvgProps >
       `
       @media (min-width: 1920px) {
-        width: ${(props) => rem(props.desktopW)};
-        height: ${(props) => rem(props.desktopH)};
+        width: ${(props) => rem(props.desktopW as number | string)};
+        height: ${(props) => rem(props.desktopH as number | string)};
       }
     `}
 `;

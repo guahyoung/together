@@ -17,9 +17,14 @@ import StA11yHidden from '../a11yhidden/A11yHidden';
 interface SearchBarProps {
   openModal?: () => void;
 }
+
+interface Keyword {
+  id: string;
+  keyword: string;
+}
 const SearchBar = ({ openModal }: SearchBarProps) => {
-  const [keywords, setKeywords] = useRecoilState<string>(searchHistoryState);
-  const [keyword, setKeyword] = useRecoilState<string>(searchKeywordState);
+  const [keywords, setKeywords] = useRecoilState(searchHistoryState);
+  const [keyword, setKeyword] = useRecoilState(searchKeywordState);
   const setSearchData = useSetRecoilState(searchBarDataState);
   const [isGuideModal, setIsGuideModal] = useState(false);
   const { toggleModal } = useModal('search');
@@ -47,10 +52,10 @@ const SearchBar = ({ openModal }: SearchBarProps) => {
     };
 
     if (keywords.length === 10) {
-      setKeywords((keywords) => keywords.slice(0, 9));
+      setKeywords((keywords: Keyword[]) => keywords.slice(0, 9));
     }
 
-    setKeywords((keywords) => [newKeyword, ...keywords]);
+    setKeywords((keywords: Keyword[]) => [newKeyword, ...keywords]);
     setSearchData([]);
     toggleModal();
     navigate(`/search?keyword=${keyword}`);

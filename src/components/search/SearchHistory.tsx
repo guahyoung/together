@@ -97,8 +97,13 @@ const StKeyword = styled.button`
   }
 `;
 
+interface Keyword {
+  id: string;
+  keyword: string;
+}
+
 const SearchHistory = () => {
-  const [keywords, setKeywords] = useRecoilState(searchHistoryState);
+  const [keywords, setKeywords] = useRecoilState<Keyword[]>(searchHistoryState);
   const { toggleModal } = useModal('search');
   const navigate = useNavigate();
 
