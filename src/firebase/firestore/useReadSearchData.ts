@@ -6,10 +6,13 @@ import {
   searchBarDataState,
 } from '@/store/search/searchDataState';
 
-interface ReadSearchDataProps {
+interface ReadSearchDataProps{
   title?: string;
   category?: string;
   description?: string;
+  desktopUrl: string;
+  tabletUrl: string;
+  mobileUrl: string;
   genre?: string[];
   id: string;
   alt?: string;
@@ -38,7 +41,7 @@ const useReadSearchData = (
         .where('title', '<=', keyword + '\uf8ff')
         .get();
         snapshot.forEach((doc) =>
-        setData((data) => [...data, {...doc.data()} as ReadSearchDataProps])
+        setData((data) => [...data, { ...doc.data() } as ReadSearchDataProps])
       );
     } catch (error) {
       setError(error as Error);

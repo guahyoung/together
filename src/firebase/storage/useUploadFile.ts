@@ -1,5 +1,10 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import {
+  StorageReference,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
 import { storage } from './index';
 
 /* -------------------------------------------------------------------------- */
@@ -9,20 +14,36 @@ import { storage } from './index';
  * @param {{ dirName?: string; usingId?: boolean; }}
  * @returns {{ fileInputRef, uploadFiles, isLoading, error, urlList }}
  */
-export function useUploadFiles({ dirName = 'assets', usingId = true } = {}) {
-  const fileInputRef = useRef(null);
+
+interface UploadFilesResult {
+  fileInputRef: React.MutableRefObject<HTMLInputElement | null>;
+  uploadFiles: () => Promise<void>;
+  isLoading: boolean;
+  error: Error | null;
+  urlList: string[] | null;
+}
+
+interface UseUploadFilesOptions {
+  dirName?: string;
+  usingId?: boolean;
+}
+export function useUploadFiles({
+  dirName = 'assets',
+  usingId = true,
+}: UseUploadFilesOptions = {}): UploadFilesResult {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [urlList, setUrlList] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [urlList, setUrlList] = useState<string[] | null>(null);
 
   const uploadFiles = useCallback(async () => {
     const { current: fileInput } = fileInputRef;
 
-    if (fileInput) {
+    if (fileInput && fileInput.files) {
       const files = fileInput.files;
 
-      const filesRef = Array.from(files).map((file) => {
+      const filesRef: StorageReference[] = Array.from(files).map((file) => {
         if (!file.name.includes('.')) {
           throw new TypeError(
             '업로드 할 파일에 확장자가 포함되어 있지 않습니다.'
@@ -52,7 +73,7 @@ export function useUploadFiles({ dirName = 'assets', usingId = true } = {}) {
 
         fileInput.value = '';
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

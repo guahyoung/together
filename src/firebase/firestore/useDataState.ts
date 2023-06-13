@@ -6,6 +6,7 @@ import {
   DocumentSnapshot,
   QuerySnapshot,
   Unsubscribe,
+  DocumentData,
 } from 'firebase/firestore';
 import { useLayoutEffect, useMemo, useState } from 'react';
 import { db } from './index';
@@ -19,7 +20,7 @@ export function useDataState(
   collectionKey: string,
   documentKey?: string
 ): DataState {
-  const [data, setData] = useState<null | undefined>(null);
+  const [data, setData] = useState<null | undefined | DocumentData>(null);
   const [error, setError] = useState<null | Error>(null);
 
   if (collectionKey.includes('/') && !documentKey) {
@@ -49,9 +50,10 @@ export function useDataState(
       unsubscribe = onSnapshot(
         collectionRef,
         (Snapshot: QuerySnapshot) => {
-          const data : DataState[] = [];
+          const data: DocumentData[] = [];
           Snapshot.forEach((doc) => {
             data.push(doc.data());
+      
           });
           setData(data);
         },
