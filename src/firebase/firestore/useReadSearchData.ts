@@ -18,7 +18,7 @@ interface ReadSearchDataProps{
   alt?: string;
 }
 
-const useReadSearchData = (
+const useReadSearchData =  (
   collectionKey: string,
   keyword: string | null,
   atomState: string
